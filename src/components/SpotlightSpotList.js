@@ -27,7 +27,7 @@ export default function SpotlightSpotList({ navigation }) {
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate("Contract", {
+              navigation.navigate("ServiceContact", {
                 _id: item._id
               })
             }
