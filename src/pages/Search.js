@@ -56,7 +56,13 @@ export default function Search({ navigation }) {
           keyExtractor={catego => searchResult._id}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => navigation.navigate("Contract")}>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("ServiceContact", {
+                  _id: item._id
+                })
+              }
+            >
               <View style={styles.listItem}>
                 <Image
                   source={{

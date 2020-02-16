@@ -1,23 +1,45 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { Image } from "react-native";
+import { Image, Linking } from "react-native";
 import {
   Container,
   Header,
   Content,
   Card,
   CardItem,
-  Thumbnail,
   Button,
   Icon,
   Left,
   Body,
   Text,
-  Right,
   Fab,
   View
 } from "native-base";
+import api from "../services/api";
 export default function ServiceContact({ navigation }) {
+  const _id = navigation.getParam("_id");
+  const [image, setImage] = useState();
+  const [name, setName] = useState();
+  const [categorie, setCategorie] = useState();
+  const [techs, setTechs] = useState();
+  const [value, setValue] = useState();
+  const [bio, setBio] = useState();
+  const [whats, setWhats] = useState();
+
+  useEffect(() => {
+    async function loadDev() {
+      const response = await api.get("/devs/" + _id);
+      setImage(response.data.dev.avatar_url);
+      setName(response.data.dev.name);
+      setBio(response.data.dev.bio);
+      setCategorie(response.data.dev.categorie);
+      setValue(response.data.dev.value);
+      setWhats(response.data.dev.whats);
+      setTechs(response.data.dev.techs);
+    }
+    loadDev();
+  }, []);
+
   return (
     <>
       <Container style={{ backgroundColor: "#E5E6F0" }}>
@@ -26,49 +48,55 @@ export default function ServiceContact({ navigation }) {
           <Card>
             <CardItem>
               <Left>
-                <Thumbnail
-                  source={{
-                    uri:
-                      "https://uploaddeimagens.com.br/images/002/257/965/original/Mark_Zuckerberg.jpg"
-                  }}
-                />
+                <FontAwesome5 name="address-card" size={40} color="#dd4814" />
                 <Body>
-                  <Text>NativeBase</Text>
-                  <Text note>GeekyAnts</Text>
+                  <Text style={{ color: "#4d194a", fontWeight: "bold" }}>
+                    {techs}
+                  </Text>
+                  <Text note style={{ color: "#4d194a" }}>
+                    {categorie}
+                  </Text>
                 </Body>
               </Left>
             </CardItem>
             <CardItem cardBody>
               <Image
                 source={{
-                  uri:
-                    "https://uploaddeimagens.com.br/images/002/257/965/original/Mark_Zuckerberg.jpg"
+                  uri: image
                 }}
-                style={{ height: 150, width: null, flex: 1 }}
+                style={{ height: 350, width: null, flex: 1 }}
               />
             </CardItem>
             <CardItem>
               <Left>
-                <Button transparent>
-                  <Icon active name="thumbs-up" />
-                  <Text>Valor</Text>
-                </Button>
+                <FontAwesome5 name="dollar-sign" size={25} color="#dd4814" />
+                <Text style={{ color: "#dd4814", fontWeight: "bold" }}>
+                  {value}
+                </Text>
               </Left>
               <Body>
-                <Button transparent>
-                  <Icon active name="chatbubbles" />
-                  <Text>Nome</Text>
-                </Button>
+                <Text style={{ color: "#4d194a", fontWeight: "bold" }}>
+                  {name}
+                </Text>
               </Body>
             </CardItem>
             <CardItem>
-              <Text>bio</Text>
+              <Text style={{ color: "#4d194a", fontWeight: "bold" }}>
+                {bio}
+              </Text>
             </CardItem>
           </Card>
           <Card>
             <CardItem>
               <Body style={{ alignItems: "center" }}>
-                <Button style={{ backgroundColor: "#34A34F" }}>
+                <Button
+                  style={{ backgroundColor: "#34A34F" }}
+                  onPress={() => {
+                    Linking.openURL(
+                      `whatsapp://send?phone=55${whats}&text=Ola, me chamo ${name}!!%20Encontrei%20seus%20serviços%20no%20Aplicativo%20Tratofeito%20e%20fiquei%20bastante%20interessado(a),%20vamos%20conversar??`
+                    );
+                  }}
+                >
                   <Icon name="logo-whatsapp" />
                   <Text>Chamar</Text>
                 </Button>

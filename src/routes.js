@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Search from "./pages/Search";
 import Main from "./pages/Main";
 import ServiceContact from "./pages/ServiceContact";
+import SearchCategorieResult from "./pages/SearchCategorieResult";
 
 const Routes = createAppContainer(
   createSwitchNavigator({
@@ -36,6 +37,12 @@ const Routes = createAppContainer(
     Auth: createStackNavigator({
       ServiceContact: {
         screen: ServiceContact,
+        navigationOptions: {
+          header: false
+        }
+      },
+      SearchCategorieResult: {
+        screen: SearchCategorieResult,
         navigationOptions: {
           header: false
         }

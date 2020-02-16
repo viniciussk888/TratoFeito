@@ -14,7 +14,6 @@ export default function CategorieSpotList({ navigation }) {
   }
   useEffect(() => {
     loadCategories();
-    //E5E6F0
   }, []);
 
   return (
@@ -28,7 +27,7 @@ export default function CategorieSpotList({ navigation }) {
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate("Search", {
+              navigation.navigate("SearchCategorieResult", {
                 categorie: item.name
               })
             }
