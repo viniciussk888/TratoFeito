@@ -15,11 +15,19 @@ import {
 import api from "../services/api";
 
 export default function Search({ navigation }) {
+  const categorie = navigation.getParam("categorie");
   const [searchParams, setSearchParams] = useState("");
   const [searchResult, setSearchResult] = useState([]);
 
+  useEffect(() => {
+    // setSearchParams(categorie);
+    // loadCategories();
+  });
+
   async function loadCategories() {
+    setSearchResult([]);
     const response = await api.get(`devsPerCategorie/${searchParams}`);
+    alert(response.status);
     setSearchResult(response.data);
   }
 

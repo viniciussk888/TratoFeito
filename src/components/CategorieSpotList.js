@@ -27,7 +27,7 @@ export default function CategorieSpotList({ navigation }) {
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate("SearchCategorieResult", {
+              navigation.navigate("Search", {
                 categorie: item.name
               })
             }
