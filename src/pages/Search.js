@@ -20,14 +20,18 @@ export default function Search({ navigation }) {
   const [searchResult, setSearchResult] = useState([]);
 
   useEffect(() => {
-    // setSearchParams(categorie);
-    // loadCategories();
-  });
+    setSearchParams(categorie);
+  }, [categorie]);
+  useEffect(() => {
+    setTimeout(() => {
+      loadCategories();
+    }, 100);
+  }, [searchParams]);
 
   async function loadCategories() {
     setSearchResult([]);
     const response = await api.get(`devsPerCategorie/${searchParams}`);
-    alert(response.status);
+    console.log(response);
     setSearchResult(response.data);
   }
 
@@ -44,6 +48,7 @@ export default function Search({ navigation }) {
             onChangeText={setSearchParams}
             autoCapitalize="characters"
             placeholder="Digite o serviço.."
+            value={searchParams}
           />
           <Button
             onPress={loadCategories}
